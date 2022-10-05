@@ -1,0 +1,110 @@
+version: "3"
+services:
+  # frontend:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./frontend
+  #   image: nextjs-frontend
+  #   volumes:
+  #     - ./frontend:/data
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  postgres:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: cuidly
+    volumes:
+      - f:/data/docker/postgresql/data:/var/lib/postgresql/data
+    ports:
+      - 5435:5432
+  redis_auth:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./redis_auth:/data
+    ports:
+      - 6378:6379
+  redis_urlshortner:
+    image: redis:alpine
+    restart: always
+    volumes:
+      - ./redis_urlshortner:/data
+    ports:
+      - 6379:6379
+  redis-commander_auth:
+    container_name: redis-commander-auth
+    hostname: redis-commander-auth
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:192.168.99.101:6378
+    depends_on:
+      - redis_auth
+    ports:
+    - 8080:8081
+  redis-commander_urlshortner:
+    container_name: redis-commander-urlshortner
+    hostname: redis-commander-urlshortner
+    image: ghcr.io/joeferner/redis-commander:latest
+    restart: always
+    environment:
+    - REDIS_HOSTS=local:192.168.99.101:6379
+    depends_on:
+      - redis_urlshortner
+    ports:
+    - 8081:8081
+  # auth:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./backend/auth
+  #   image: auth-backend
+  #   restart: always
+  #   environment:
+  #     - PORT=5000
+  #     - FRONTEND_URL=http://192.168.99.101
+  #   volumes:
+  #     - ./auth-backend:/auth
+  #   ports:
+  #     - 5000:5000
+  #   depends_on:
+  #     - postgres
+  #     - redis_auth
+  # urlshortner:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./backend/urlshortner
+  #   image: urlshortner-backend
+  #   restart: always
+  #   environment:
+  #     - PORT=5001
+  #     - FRONTEND_URL=http://192.168.99.101
+  #   volumes:
+  #     - ./urlshortner-backend:/urlshortner
+  #   depends_on:
+  #     - postgres
+  #     - redis_urlshortner
+  # nginx:
+  #   build:
+  #     dockerfile: Dockerfile
+  #     context: ./backend/proxy
+  #   volumes:
+  #     - ./proxy:/proxy
+  #   depends_on:
+  #     - frontend
+  #     - auth
+  #     - urlshortner
+  #   ports:
+  #     - 80:80
+  
+volumes:
+  # frontend:
+  pgdata:
+  redis_auth:
+  redis_urlshortner:
+  # auth-backend:
+  # urlshortner-backend:
+  # proxy:

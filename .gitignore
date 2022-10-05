@@ -1,0 +1,9 @@
+/redis_auth
+/redis_urlshortner
+/urlshortner-backend
+/proxy
+/pgdata
+/auth-backend
+node_modules
+.env*
+dump.rdb

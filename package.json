@@ -1,0 +1,13 @@
+{
+  "name": "cuidly",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "docker:up": "docker-compose up --build --scale urlshortner=3",
+    "docker:down": "docker-compose down"
+  },
+  "keywords": [],
+  "author": "Pinaki Bhattacharjee <pinakipb2@gmail.com>",
+  "license": "MIT"
+}
