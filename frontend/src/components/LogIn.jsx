@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { loginUser } from '../api/auth';
 import { toast } from 'react-hot-toast';
+import { useDispatch } from 'react-redux';
+import { setTokens } from '../redux/user/userSlice';
 
 const LogIn = () => {
+  const dispatch = useDispatch();
   const [data, setData] = useState({
     username: '',
     password: '',
@@ -13,15 +16,16 @@ const LogIn = () => {
       const resp = await loginUser(data);
       console.log(resp);
       console.log(resp.data);
+      dispatch(setTokens(resp.data));
       // TODO: remove toast and setData
       toast.success('Logged In Successfully');
-    //   setData({
-    //     username: '',
-    //     password: '',
-    //   });
+      //   setData({
+      //     username: '',
+      //     password: '',
+      //   });
     } catch (err) {
       console.log(err);
-      toast.error(err.response.data.message);
+      toast.error(err.response.data.message, { id: 'login-error' });
     }
   };
   const handleChange = (e) => {
