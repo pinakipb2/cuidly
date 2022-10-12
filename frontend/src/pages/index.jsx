@@ -8,15 +8,19 @@ import ShortenHero from '../components/ShortenHero';
 
 const Home = () => {
   useEffect(() => {
+    const controller = new AbortController();
     const getGuestSession = async () => {
       try {
-        const guestSession = await requestGuest();
+        const guestSession = await requestGuest({ signal: controller.signal });
         console.log(guestSession);
       } catch (err) {
         console.log(err);
       }
     };
     getGuestSession();
+    return () => {
+      controller.abort();
+    };
   }, []);
 
   return (

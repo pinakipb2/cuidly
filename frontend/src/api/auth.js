@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const api = axios.create({
+export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_AUTH_API_URL,
   headers: {
     'Content-type': 'application/json',
@@ -9,9 +9,10 @@ const api = axios.create({
 });
 
 // List of all the endpoints
-export const requestGuest = () => api.post('/request-guest');
+export const requestGuest = (config = {}) => api.post('/request-guest', config);
 export const registerUser = (data) => api.post('/register', data);
-export const loginUser = (data) => api.post('/login', data);
+export const logInUser = (data) => api.post('/login', data);
+export const logOutUser = (data, config = {}) => api.post('/logout', data, config);
 
 // Inceptors
 api.interceptors.response.use(

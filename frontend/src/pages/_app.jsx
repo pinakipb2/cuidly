@@ -8,9 +8,11 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 import { store } from '../redux/store';
 import Loading from '../components/Loading';
+import { useResponseInterceptor } from '../hooks/useResponseInterceptor';
 
 function MyApp({ Component, pageProps }) {
   const persistor = persistStore(store);
+  useResponseInterceptor();
   return (
     <Provider store={store}>
       <Head>

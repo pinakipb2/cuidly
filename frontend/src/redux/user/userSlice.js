@@ -2,11 +2,11 @@ import { createSlice } from '@reduxjs/toolkit';
 import jwt_decode from 'jwt-decode';
 
 const initialState = {
-  access_token: null,
-  refresh_token: null,
   userId: null,
   username: null,
   accountType: null,
+  access_token: null,
+  refresh_token: null,
 };
 
 export const userSlice = createSlice({
@@ -21,13 +21,7 @@ export const userSlice = createSlice({
       state.username = decoded.username;
       state.accountType = decoded.accountType;
     },
-    clearTokens: (state) => {
-      state.access_token = null;
-      state.refresh_token = null;
-      state.userId = null;
-      state.username = null;
-      state.accountType = null;
-    },
+    clearTokens: () => initialState,
   },
 });
 
