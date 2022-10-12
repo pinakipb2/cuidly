@@ -5,12 +5,6 @@ import { createStateSyncMiddleware, initMessageListener } from 'redux-state-sync
 
 import userReducer from './user/userSlice';
 
-const persistConfig = {
-  key: 'cuidly',
-  version: 1,
-  storage: localforage,
-};
-
 const reducer = combineReducers({
   user: userReducer,
 });
@@ -19,16 +13,37 @@ const config = {
   blacklist: ['persist/PERSIST', 'persist/REHYDRATE'],
 };
 
-const persistedReducer = persistReducer(persistConfig, reducer);
+const isServer = typeof window === 'undefined';
 
-export const store = configureStore({
-  reducer: persistedReducer,
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware({
-      serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }).concat(createStateSyncMiddleware(config)),
-});
+let store;
 
-initMessageListener(store);
+if (isServer) {
+  store = configureStore({
+    reducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }),
+  });
+} else {
+  const persistConfig = {
+    key: 'cuidly',
+    version: 1,
+    storage: localforage,
+  };
+  const persistedReducer = persistReducer(persistConfig, reducer);
+  store = configureStore({
+    reducer: persistedReducer,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+      }).concat(createStateSyncMiddleware(config)),
+  });
+  initMessageListener(store);
+}
+
+export { store };
