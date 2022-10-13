@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { requestGuest } from '../api/auth';
-import ExtendedHero from '../components/ExtendedHero';
-import Footer from '../components/Footer';
-import HeroSection from '../components/HeroSection';
-import Navbar from '../components/Navbar';
-import ShortenHero from '../components/ShortenHero';
+import ExtendedHero from '../components/screen/ExtendedHero';
+import Footer from '../components/common/Footer';
+import HeroSection from '../components/screen/HeroSection';
+import Navbar from '../components/common/Navbar';
+import ShortenHero from '../components/screen/ShortenHero';
+import goToThisIfUserNotAuthenticated from '../HOC/goToThisIfUserNotAuthenticated';
 
 const Home = () => {
   useEffect(() => {

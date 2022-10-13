@@ -1,6 +1,7 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import SignUp from '../components/SignUp';
+import Navbar from '../components/common/Navbar';
+import SignUp from '../components/screen/SignUp';
+import goToThisIfUserNotAuthenticated from '../HOC/goToThisIfUserNotAuthenticated';
 
 const Register = () => {
   return (

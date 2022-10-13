@@ -1,6 +1,7 @@
 import React from 'react';
-import Navbar from '../components/Navbar';
-import LogIn from '../components/LogIn';
+import Navbar from '../components/common/Navbar';
+import LogIn from '../components/screen/LogIn';
+import goToThisIfUserNotAuthenticated from '../HOC/goToThisIfUserNotAuthenticated';
 
 const Login = () => {
   return (

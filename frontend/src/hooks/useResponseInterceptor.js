@@ -8,7 +8,6 @@ export const useResponseInterceptor = () => {
   const interceptorId = useRef(null);
   const router = useRouter();
   useEffect(() => {
-    console.log(interceptorId.current);
     interceptorId.current = api.interceptors.response.use(
       (config) => {
         return config;

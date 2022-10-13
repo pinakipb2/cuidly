@@ -1,6 +1,6 @@
 import React from 'react';
-import AboutComponenent from '../components/About';
-import Navbar from '../components/Navbar';
+import AboutComponenent from '../components/screen/About';
+import Navbar from '../components/common/Navbar';
 
 const About = () => {
   return (
