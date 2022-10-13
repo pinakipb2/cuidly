@@ -1,5 +1,8 @@
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { logInUser, logOutUser, registerUser } from '../../api/auth';
+import { authStatusType, isUserInRedux } from '../../utils';
 
 // getSession() returns an object containing two values: data and status
 const getSession = () => {
@@ -8,30 +11,37 @@ const getSession = () => {
     NULL: null,
   };
 
-  const statusType = {
-    LOADING: 'loading',
-    AUTHENTICATED: 'authenticated',
-    UNAUTHENTICATED: 'unauthenticated',
-  };
-
-  let status = statusType.LOADING;
+  let status = authStatusType.LOADING;
   let data = dataType.UNDEFINED;
 
   const userId = useSelector((state) => state.user.userId);
   const username = useSelector((state) => state.user.username);
   const accountType = useSelector((state) => state.user.accountType);
-  const access_token = useSelector((state) => state.user.access_token);
-  const refresh_token = useSelector((state) => state.user.refresh_token);
 
-  if (userId === null || username === null || accountType === null || access_token === null || refresh_token === null) {
-    status = statusType.UNAUTHENTICATED;
+  const notAuthenticatedUser = isUserInRedux();
+
+  const router = useRouter();
+  useEffect(() => {
+    // console.log(router.pathname);
+    // console.log(notAuthenticatedUser);
+    if (notAuthenticatedUser) {
+      if (router.pathname === '/dashboard') {
+        router.push('/login');
+      }
+    } else {
+      router.push('/dashboard');
+    }
+  }, [notAuthenticatedUser]);
+
+  if (notAuthenticatedUser) {
+    status = authStatusType.UNAUTHENTICATED;
     data = dataType.NULL;
     return {
       data,
       status,
     };
   } else {
-    status = statusType.AUTHENTICATED;
+    status = authStatusType.AUTHENTICATED;
     data = {
       id: userId,
       username,
@@ -48,7 +58,10 @@ const getSession = () => {
 // authData is { username, password, type: router.query.type || 'FREE' }
 const registerUserAuth = async (authData) => {
   try {
-    const resp = await registerUser(authData);
+    const { data } = await registerUser(authData);
+    if (data.username !== authData.username) {
+      throw new Error('Unable to Register User');
+    }
     return { status: 'success', message: 'Account Created Successfully' };
   } catch (err) {
     console.log(err);
