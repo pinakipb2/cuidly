@@ -5,7 +5,7 @@ import React from 'react';
 const Navbar = ({ item }) => {
   return (
     <div className="sticky top-0 z-50">
-      <nav className="bg-white px-36 py-6 rounded">
+      <nav className="bg-white px-36 py-2 pt-3 rounded">
         <div className="flex flex-row justify-between items-center w-full">
           <Link href="/">
             <div className="hover:cursor-pointer">

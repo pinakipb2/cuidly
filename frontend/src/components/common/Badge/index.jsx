@@ -20,7 +20,7 @@ const Badge = ({ accountType }) => {
   };
   return (
     <>
-      <div className={`flex justify-center items-center ${badgeBG[accountType] + ' ' + badgeText[accountType]} rounded-3xl px-3 py-0.5 w-fit text-sm font-medium gap-1`}>
+      <div className={`flex justify-center items-center ${badgeBG[accountType] + ' ' + badgeText[accountType]} rounded-3xl px-3 py-0.5 w-fit text-xs font-medium gap-1`}>
         <span className={`text-xs ${badgeIcon[accountType]}`}>
           <BsCircleFill size={6} />
         </span>

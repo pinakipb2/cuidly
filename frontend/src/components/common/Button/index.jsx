@@ -6,11 +6,16 @@ const colors = {
   [buttonVariant.SUCCESS]: 'bg-green-700',
   [buttonVariant.DANGER]: 'bg-red-700',
 };
+const hoverColors = {
+  [buttonVariant.PRIMARY]: 'hover:bg-blue-800',
+  [buttonVariant.SUCCESS]: 'hover:bg-green-800',
+  [buttonVariant.DANGER]: 'hover:bg-red-800',
+};
 
 const Button = ({ buttonText, isDisabled = false, variant = buttonVariant.PRIMARY, className = '', onClick = function () {}, isLoading = false, loadingText = 'Loading...' }) => {
   return (
     <button
-      className={`flex items-center place-items-center justify-center ${colors[variant]} ${className} w-1/6 rounded-md shadow-xl mt-2 py-2 text-white font-semibold disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-opacity-90`}
+      className={`${className} flex items-center place-items-center justify-center ${colors[variant]} w-1/6 rounded-md shadow-xl mt-2 py-2 text-white font-semibold disabled:bg-opacity-50 disabled:cursor-not-allowed ${hoverColors[variant]}`}
       onClick={() => {
         onClick();
       }}

@@ -5,7 +5,7 @@ import { HiOutlineChevronDoubleDown } from 'react-icons/hi';
 const HeroSection = () => {
   return (
     <div className="flex flex-col">
-      <div className="flex w-full px-48 py-24">
+      <div className="flex w-full px-48 py-28">
         <div className="w-2/3 flex flex-col space-y-10">
           <div className="font-extrabold text-4xl flex flex-col space-y-2">
             <span>Shorten URLs.</span>
