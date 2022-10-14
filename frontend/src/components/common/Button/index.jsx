@@ -10,7 +10,7 @@ const colors = {
 const Button = ({ buttonText, isDisabled = false, variant = buttonVariant.PRIMARY, className = '', onClick = function () {}, isLoading = false, loadingText = 'Loading...' }) => {
   return (
     <button
-      className={`flex items-center place-items-center justify-center ${colors[variant]} ${className} w-1/6 rounded-md shadow-xl mt-2 py-2 text-white font-semibold disabled:bg-opacity-50 disabled:cursor-not-allowed`}
+      className={`flex items-center place-items-center justify-center ${colors[variant]} ${className} w-1/6 rounded-md shadow-xl mt-2 py-2 text-white font-semibold disabled:bg-opacity-50 disabled:cursor-not-allowed hover:bg-opacity-90`}
       onClick={() => {
         onClick();
       }}
