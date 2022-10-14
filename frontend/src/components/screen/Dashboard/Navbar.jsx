@@ -11,6 +11,7 @@ import { clearTokens } from '../../../redux/user/userSlice';
 
 const DashboardNavbar = () => {
   const dispatch = useDispatch();
+  const username = useSelector((state) => state.user.username);
   const accountType = useSelector((state) => state.user.accountType);
   const access_token = useSelector((state) => state.user.access_token);
   const refresh_token = useSelector((state) => state.user.refresh_token);
@@ -35,8 +36,9 @@ const DashboardNavbar = () => {
             </div>
           </Link>
           <Badge accountType={accountType} />
-          <div className="flex flex-row w-full justify-end space-x-8">
-            <Button buttonText="Logout" onClick={logout} className="mt-0 w-auto px-6" variant={buttonVariant.DANGER} />
+          <div className="flex flex-row w-full items-center gap-10 font-medium justify-end space-x-8">
+            Hello, {username}
+            <Button buttonText="Logout" onClick={logout} className="mt-0 w-auto px-6 shadow-md" variant={buttonVariant.DANGER} />
           </div>
         </div>
       </nav>
