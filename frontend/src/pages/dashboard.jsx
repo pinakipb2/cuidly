@@ -4,10 +4,9 @@ import goToThisIfUserAuthenticated from '../HOC/goToThisIfUserAuthenticated';
 
 const Dashboard = () => {
   return (
-    <div>
-      Dashboard
+    <>
       <MainContent />
-    </div>
+    </>
   );
 };
 
