@@ -6,7 +6,7 @@ const goToThisIfUserNotAuthenticated = (Component) => {
   const Auth = (props) => {
     const { data: session, status } = getSession();
     console.table({ session, status });
-    if (status === authStatusType.AUTHENTICATED) {
+    if (status === authStatusType.AUTHENTICATED || status === authStatusType.LOADING) {
       return <Loading />;
     }
     return <Component {...props} />;

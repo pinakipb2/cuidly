@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setTokens } from '../../redux/user/userSlice';
 import { signIn } from '../../lib/auth';
 import Button from '../common/Button';
