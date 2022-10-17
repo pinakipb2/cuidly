@@ -13,6 +13,7 @@ export const requestGuest = (config = {}) => api.post('/request-guest', config);
 export const registerUser = (data) => api.post('/register', data);
 export const logInUser = (data) => api.post('/login', data);
 export const logOutUser = (data, config = {}) => api.post('/logout', data, config);
+export const refreshTokens = (data, config = {}) => api.post('/refresh', data, config);
 
 // Inceptors
 api.interceptors.response.use(
@@ -32,6 +33,6 @@ api.interceptors.response.use(
         }
       }
     }
-    throw error;
+    return Promise.reject(error);
   }
 );

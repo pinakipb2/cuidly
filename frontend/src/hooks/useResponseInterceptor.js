@@ -13,8 +13,8 @@ export const useResponseInterceptor = () => {
         return config;
       },
       async (error) => {
-        const errorMessage = error.response.data.message;
-        switch (error.response.status) {
+        const errorMessage = error.response?.data?.message;
+        switch (error.response?.status) {
           case 401:
             router.push('/login');
             toast.error(errorMessage, { id: errorMessage });

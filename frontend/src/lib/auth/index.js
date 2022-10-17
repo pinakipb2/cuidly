@@ -54,6 +54,8 @@ const getSession = () => {
   }
 };
 
+const defaultErrorMsg = 'Unexpected Error';
+
 // The callbackUrl specifies to which URL the user will be redirected after signing in. It defaults to the home page.
 // authData is { username, password, type: router.query.type || 'FREE' }
 const registerUserAuth = async (authData) => {
@@ -65,7 +67,7 @@ const registerUserAuth = async (authData) => {
     return { status: 'success', message: 'Account Created Successfully' };
   } catch (err) {
     console.log(err);
-    return { status: 'error', message: err.response.data.message };
+    return { status: 'error', message: err.response?.data?.message || defaultErrorMsg };
   }
 };
 
@@ -76,7 +78,7 @@ const signIn = async (authData, callbackUrl = '/dashboard') => {
     return { status: 'success', message: resp.data };
   } catch (err) {
     console.log(err);
-    return { status: 'error', message: err.response.data.message };
+    return { status: 'error', message: err.response?.data?.message || defaultErrorMsg };
   }
 };
 
@@ -89,7 +91,7 @@ const signOut = async (access_token, refresh_token, callbackUrl = '/login') => {
     return { status: 'success', message: resp.data };
   } catch (err) {
     console.log(err);
-    return { status: 'error', message: err.response.data.message };
+    return { status: 'error', message: err.response?.data?.message || defaultErrorMsg };
   }
 };
 
